@@ -1,4 +1,4 @@
-angular.module('pottyParty')
+angular.module('pottyParty.controllers')
 	.controller('MainCtrl', ['$scope', 'mapFuncs', function($scope, mapFuncs){
     function initialize() {
       var mapOptions = {

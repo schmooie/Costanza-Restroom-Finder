@@ -1,4 +1,4 @@
-angular.module('pottyParty')
+angular.module('pottyParty.services')
 	.factory('mapFuncs', [function(){
 		return {
 			style: [
