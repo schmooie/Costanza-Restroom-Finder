@@ -5,7 +5,7 @@ var methodOverride = require('method-override');
 var restify = require('express-restify-mongoose');
 var http = require('http');
 
-mongoose.connect('mongodb://localhost/nycRestrooms');
+mongoose.connect('mongodb://mongo:mymongo@novus.modulusmongo.net:27017/n2osopaB');
 
 var Restroom = mongoose.model('Restroom', {
 	oid: Number,
