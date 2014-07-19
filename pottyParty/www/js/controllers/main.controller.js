@@ -9,11 +9,11 @@ angular.module('pottyParty.controllers')
         zoom: 13
       };
 
-      var map;
+      var mapCanvas;
       var allRestrooms;
 
       var initialize = function() {
-        map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapCanvas = new google.maps.Map(document.getElementById("map-canvas"),
           mapOptions);
       };
 
@@ -22,7 +22,9 @@ angular.module('pottyParty.controllers')
       $http.get('http://localhost:3000/api/v1/Restrooms')
       	.success(function(restrooms){
       		allRestrooms = restrooms;
-      		console.log(allRestrooms);
+      		allRestrooms.forEach(function(el){
+      			mapFuncs.makeMarker(true, mapCanvas, el);
+      		});
       	});
 
       $scope.getCurrentPosition = function(options) {
@@ -31,8 +33,12 @@ angular.module('pottyParty.controllers')
           var address = res.coords.latitude + ',' + res.coords.longitude;
 
           var userLocation = new google.maps.LatLng(res.coords.latitude, res.coords.longitude);
-          map.setCenter(userLocation);
-          map.setZoom(15);
+          mapCanvas.setCenter(userLocation);
+          mapCanvas.setZoom(15);
+
+          // GEORGE COSTANZA
+          var costanza = mapFuncs.makeMarker(false, mapCanvas, userLocation, 'George Costanza');
+          // costanza.setMap(mapCanvas);
 
           geocoder.geocodeAddress(address).then(function(res) {
             $scope.searchAddress = res.formattedAddress;

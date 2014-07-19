@@ -45,8 +45,18 @@ angular.module('pottyParty.services')
 		        ]
 		    }
 			],
-			makeMarker: function (data, map) {
-				var position = new google.maps.LatLng(data.coords[0], data.coords[1]);
+			makeMarker: function (rawCoords, map, data, title) {
+				var animation = null;
+				var position;
+
+				if (rawCoords) {
+					// raw data coordinates = [long, lat]
+					position = new google.maps.LatLng(data.coords[1], data.coords[0]);
+					title = data.name;
+				} else {
+					position = data;
+					animation = google.maps.Animation.DROP;
+				}
 				// var icon;
 				// if (data.category === 'Coffee Shop') {
 
@@ -61,9 +71,11 @@ angular.module('pottyParty.services')
 				// }
 				var marker = new google.maps.Marker({
 					position: position,
+					title: title,
 					map: map,
-					title: data.name
+					animation: animation
 				});
+				return marker;
 			}
 		};
 	}]);
