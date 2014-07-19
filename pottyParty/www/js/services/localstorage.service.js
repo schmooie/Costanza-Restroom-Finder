@@ -13,7 +13,7 @@ angular.module('pottyParty.services')
       $window.localStorage[key] = JSON.stringify(value);
     },
     getObject: function(key) {
-      return JSON.parse($window.localStorage[key] || '{}');
+      return JSON.parse($window.localStorage[key] || null);
     },
     remove: function(key) {
       $window.localStorage.removeItem(key);

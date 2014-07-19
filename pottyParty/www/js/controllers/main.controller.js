@@ -1,6 +1,6 @@
 angular.module('pottyParty.controllers')
-  .controller('MainCtrl', ['$scope', '$http', '$cordovaGeolocation', '$cordovaToast', 'mapFuncs', 'geocoder',
-    function($scope, $http, $cordovaGeolocation, $cordovaToast, mapFuncs, geocoder) {
+  .controller('MainCtrl', ['$scope', '$http', '$cordovaGeolocation', '$cordovaToast', 'mapFuncs', 'geocoder', 'storage',
+    function($scope, $http, $cordovaGeolocation, $cordovaToast, mapFuncs, geocoder, storage) {
 
       var mapOptions = {
         center: new google.maps.LatLng(40.754926, -73.984281),
@@ -10,7 +10,27 @@ angular.module('pottyParty.controllers')
       };
 
       var mapCanvas;
-      var allRestrooms;
+      var allRestrooms = storage.getObject('allRestrooms');
+
+      if (allRestrooms === null) {
+        console.log('Requesting data from server...');
+        $http.get('http://localhost:3000/api/v1/Restrooms')
+        	.success(function(restrooms){
+        		allRestrooms = restrooms;
+            storage.setObject('allRestrooms', allRestrooms);
+            allRestrooms.forEach(function(el){
+      				mapFuncs.makeMarker(true, mapCanvas, el);
+      			});
+        		console.log(allRestrooms);
+        	}).error(function(err) {
+            console.log('Failed to get restrooms: ', err);
+          });
+      } else {
+        console.log('Loaded from localStorage: ', allRestrooms);
+        allRestrooms.forEach(function(el){
+      			mapFuncs.makeMarker(true, mapCanvas, el);
+    		});
+      }
 
       var initialize = function() {
         mapCanvas = new google.maps.Map(document.getElementById("map-canvas"),
@@ -18,14 +38,6 @@ angular.module('pottyParty.controllers')
       };
 
       google.maps.event.addDomListener(window, 'load', initialize);
-
-      $http.get('http://localhost:3000/api/v1/Restrooms')
-      	.success(function(restrooms){
-      		allRestrooms = restrooms;
-      		allRestrooms.forEach(function(el){
-      			mapFuncs.makeMarker(true, mapCanvas, el);
-      		});
-      	});
 
       $scope.getCurrentPosition = function(options) {
         $cordovaToast.showLongCenter('The Potty Satellite 5000 is pinpointing your exact location...');
