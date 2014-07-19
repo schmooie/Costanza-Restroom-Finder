@@ -16,6 +16,7 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <script src="js/ng-cordova.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
@@ -31,7 +32,7 @@
         <i class="icon ion-ios7-search placeholder-icon"></i>
         <input type="search" placeholder="Search">
       </label>
-      <button class="button button-dark">
+      <button class="button button-dark" ng-click="getCurrentPosition()">
         Clear
       </button>
     </div>

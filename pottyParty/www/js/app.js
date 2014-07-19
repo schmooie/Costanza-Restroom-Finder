@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('pottyParty.services', []);
 angular.module('pottyParty.controllers', []);
-angular.module('pottyParty', ['ionic', 'pottyParty.services', 'pottyParty.controllers'])
+angular.module('pottyParty', ['ionic', 'pottyParty.services', 'pottyParty.controllers', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

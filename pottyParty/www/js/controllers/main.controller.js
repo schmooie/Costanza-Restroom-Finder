@@ -1,5 +1,5 @@
 angular.module('pottyParty.controllers')
-	.controller('MainCtrl', ['$scope', 'mapFuncs', function($scope, mapFuncs){
+	.controller('MainCtrl', ['$scope', 'mapFuncs', '$cordovaGeolocation', function($scope, mapFuncs, $cordovaGeolocation){
     function initialize() {
       var mapOptions = {
         center: new google.maps.LatLng(-34.397, 150.644),
@@ -11,4 +11,13 @@ angular.module('pottyParty.controllers')
           mapOptions);
     }
     google.maps.event.addDomListener(window, 'load', initialize);
+
+    $scope.getCurrentPosition = function(options) {
+      $cordovaGeolocation.getCurrentPosition(options).then(function(res) {
+        console.log('GEOLOCATION success: ', res);
+      }, function(err) {
+        console.log('GEOLOCATION fail: ', err);
+      });
+    };
+
 	}]);
