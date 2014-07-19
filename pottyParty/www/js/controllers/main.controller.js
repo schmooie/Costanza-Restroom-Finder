@@ -12,29 +12,32 @@ angular.module('pottyParty.controllers')
       var mapCanvas;
       var allRestrooms = storage.getObject('allRestrooms');
 
-      if (allRestrooms === null) {
-        console.log('Requesting data from server...');
-        $http.get('http://localhost:3000/api/v1/Restrooms')
-        	.success(function(restrooms){
-        		allRestrooms = restrooms;
-            storage.setObject('allRestrooms', allRestrooms);
-            allRestrooms.forEach(function(el){
-      				mapFuncs.makeMarker(true, mapCanvas, el);
-      			});
-        		console.log(allRestrooms);
-        	}).error(function(err) {
-            console.log('Failed to get restrooms: ', err);
-          });
-      } else {
-        console.log('Loaded from localStorage: ', allRestrooms);
-        allRestrooms.forEach(function(el){
-      			mapFuncs.makeMarker(true, mapCanvas, el);
-    		});
-      }
+      var loadMarkers = function () {
+	      if (allRestrooms === null) {
+	        console.log('Requesting data from server...');
+	        $http.get('http://localhost:3000/api/v1/Restrooms')
+	        	.success(function(restrooms){
+	        		allRestrooms = restrooms;
+	            storage.setObject('allRestrooms', allRestrooms);
+	            allRestrooms.forEach(function(el){
+	      				mapFuncs.makeMarker(true, mapCanvas, el);
+	      			});
+	        		console.log(allRestrooms);
+	        	}).error(function(err) {
+	            console.log('Failed to get restrooms: ', err);
+	          });
+	      } else {
+	        console.log('Loaded from localStorage: ', allRestrooms);
+	        allRestrooms.forEach(function(el){
+	      			mapFuncs.makeMarker(true, mapCanvas, el);
+	    		});
+	      }
+      };
 
       var initialize = function() {
         mapCanvas = new google.maps.Map(document.getElementById("map-canvas"),
           mapOptions);
+        loadMarkers();
       };
 
       google.maps.event.addDomListener(window, 'load', initialize);
