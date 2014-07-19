@@ -1,6 +1,7 @@
 angular.module('pottyParty.controllers')
-  .controller('MainCtrl', ['$scope', 'mapFuncs', '$cordovaGeolocation', '$cordovaToast', 'geocoder',
-    function($scope, mapFuncs, $cordovaGeolocation, $cordovaToast, geocoder) {
+  .controller('MainCtrl', ['$scope', '$http', '$cordovaGeolocation', '$cordovaToast', 'mapFuncs', 'geocoder',
+    function($scope, $http, $cordovaGeolocation, $cordovaToast, mapFuncs, geocoder) {
+
       var mapOptions = {
         center: new google.maps.LatLng(40.754926, -73.984281),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -9,6 +10,7 @@ angular.module('pottyParty.controllers')
       };
 
       var map;
+      var allRestrooms;
 
       var initialize = function() {
         map = new google.maps.Map(document.getElementById("map-canvas"),
@@ -16,6 +18,12 @@ angular.module('pottyParty.controllers')
       };
 
       google.maps.event.addDomListener(window, 'load', initialize);
+
+      $http.get('http://localhost:3000/api/v1/Restrooms')
+      	.success(function(restrooms){
+      		allRestrooms = restrooms;
+      		console.log(allRestrooms);
+      	});
 
       $scope.getCurrentPosition = function(options) {
         $cordovaToast.showLongCenter('The Potty Satellite 5000 is pinpointing your exact location...');
