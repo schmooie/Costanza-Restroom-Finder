@@ -13,7 +13,15 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -39,6 +47,9 @@
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.ionicframework.pottyparty352771"
         },
+        "nl.x-services.plugins.toast": {
+            "PACKAGE_NAME": "com.ionicframework.pottyparty352771"
+        },
         "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.ionicframework.pottyparty352771"
         },
@@ -46,6 +57,9 @@
             "PACKAGE_NAME": "com.ionicframework.pottyparty352771"
         },
         "org.apache.cordova.geolocation": {
+            "PACKAGE_NAME": "com.ionicframework.pottyparty352771"
+        },
+        "org.apache.cordova.splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.pottyparty352771"
         }
     },
