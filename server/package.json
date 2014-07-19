@@ -1,0 +1,18 @@
+{
+  "name": "pottyServer",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.6.1",
+    "mongoose": "^3.8.13",
+    "express-restify-mongoose": "^0.6.8",
+    "body-parser": "^1.4.3",
+    "method-override": "^2.1.1"
+  }
+}
