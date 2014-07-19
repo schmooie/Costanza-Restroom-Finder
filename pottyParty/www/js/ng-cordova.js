@@ -64,14 +64,28 @@ ngCordova
     .factory('$cordovaToast', ['$q',
         function($q) {
 
+            if (!window.hasOwnProperty('plugins')) {
+              window.plugins = {
+                toast: {
+                  showShortTop: function(){},
+                  showShortCenter: function(){},
+                  showShortBottom: function(){},
+                  showLongTop: function(){},
+                  showLongCenter: function(){},
+                  showLongBottom: function(){},
+                  show: function(){}
+                }
+              };
+            }
+
             return {
                 showShortTop: function(message) {
                     var q = $q.defer();
                     window.plugins.toast.showShortTop(message, function(response) {
                         q.resolve(response);
                     }, function(error) {
-                        q.reject(error)
-                    })
+                        q.reject(error);
+                    });
                     return q.promise;
                 },
 
@@ -80,8 +94,8 @@ ngCordova
                     window.plugins.toast.showShortCenter(message, function(response) {
                         q.resolve(response);
                     }, function(error) {
-                        q.reject(error)
-                    })
+                        q.reject(error);
+                    });
                     return q.promise;
                 },
 
@@ -90,8 +104,8 @@ ngCordova
                     window.plugins.toast.showShortBottom(message, function(response) {
                         q.resolve(response);
                     }, function(error) {
-                        q.reject(error)
-                    })
+                        q.reject(error);
+                    });
                     return q.promise;
                 },
 
@@ -100,8 +114,8 @@ ngCordova
                     window.plugins.toast.showLongTop(message, function(response) {
                         q.resolve(response);
                     }, function(error) {
-                        q.reject(error)
-                    })
+                        q.reject(error);
+                    });
                     return q.promise;
                 },
 
@@ -110,8 +124,8 @@ ngCordova
                     window.plugins.toast.showLongCenter(message, function(response) {
                         q.resolve(response);
                     }, function(error) {
-                        q.reject(error)
-                    })
+                        q.reject(error);
+                    });
                     return q.promise;
                 },
 
@@ -120,8 +134,8 @@ ngCordova
                     window.plugins.toast.showLongBottom(message, function(response) {
                         q.resolve(response);
                     }, function(error) {
-                        q.reject(error)
-                    })
+                        q.reject(error);
+                    });
                     return q.promise;
                 },
 
@@ -131,11 +145,11 @@ ngCordova
                     window.plugins.toast.show(message, duration, position, function(response) {
                         q.resolve(response);
                     }, function(error) {
-                        q.reject(error)
-                    })
+                        q.reject(error);
+                    });
                     return q.promise;
                 }
-            }
+            };
 
         }
     ]);
