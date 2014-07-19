@@ -44,6 +44,26 @@ angular.module('pottyParty.services')
 		            }
 		        ]
 		    }
-			]
+			],
+			makeMarker: function (data, map) {
+				var position = new google.maps.LatLng(data.coords[0], data.coords[1]);
+				// var icon;
+				// if (data.category === 'Coffee Shop') {
+
+				// } else if (data.category === 'Public') {
+
+				// } else if (data.category === 'Hotel') {
+
+				// } else if (data.category === 'Book Store') {
+
+				// } else (data.category === 'Other') {
+
+				// }
+				var marker = new google.maps.Marker({
+					position: position,
+					map: map,
+					title: data.name
+				});
+			}
 		};
 	}]);
