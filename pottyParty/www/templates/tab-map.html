@@ -4,7 +4,9 @@
     <div class="bar bar-header item-input-inset">
       <label class="item-input-wrapper">
         <i class="icon ion-ios7-search placeholder-icon"></i>
-        <input type="search" placeholder="Search" ng-model="searchAddress">
+        <form class="inputForm" name="addressForm" ng-submit="getAddressPosition(startAddress)" ng-init="setFormScope(this)">
+          <input type="text" placeholder="Start Address" ng-model="startAddress">
+        </form>
       </label>
       <button class="button button-dark" ng-click="getCurrentPosition()">
         <span class="icon ion-android-locate"></span>
