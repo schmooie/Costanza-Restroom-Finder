@@ -62,15 +62,20 @@ angular.module('pottyParty.services')
           var position;
           var icon;
           var title;
+          var contentStr;
+          var infoWindow;
+          var marker;
 
           if (options.rawCoords) {
             // raw data coordinates = [long, lat]
             position = new google.maps.LatLng(data.coords[1], data.coords[0]);
             title = data.name;
+            contentStr = '<div class="infoWindow"> <h3>' + data.name + '</h3> Category: ' + data.category + '</div>';
           } else {
             position = data;
             animation = google.maps.Animation.DROP;
             title = options.title;
+            contentStr = 'GEORGE COSTANZA';
           }
 
           if (data.category === 'Coffee Shop') {
@@ -87,16 +92,37 @@ angular.module('pottyParty.services')
             icon = 'img/costanza.png';
           }
 
-          var marker = new google.maps.Marker({
+          marker = new google.maps.Marker({
             position: position,
             title: title,
             map: map,
             icon: icon,
-            animation: animation
+            animation: animation,
+            clickable: true
           });
 
+          infoWindow = new google.maps.InfoWindow({
+            content: contentStr
+          });
+
+					// marker.contentStr = contentStr;
+
+          google.maps.event.addListener(marker, 'click', function() {
+            infoWindow.open(map, marker);
+
+            // Just in time to save memory
+            // if (!marker.infoWindow) {
+            // 	marker.infoWindow = new google.maps.InfoWindow({
+            // 		content: marker.contentStr
+            // 	});
+            // }
+            // marker.infoWindow.open(map, marker);
+            console.log('Event triggered');
+          });
+
+
           if (options.onTop === true) {
-          	// Costanza on top of the other markers when zoomed in --- still need to overlay him on top of the clusters
+            // Costanza on top of the other markers when zoomed in --- still need to overlay him on top of the clusters
             marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
             console.log(marker);
           }
