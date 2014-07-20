@@ -38,3 +38,12 @@
 
 .icon-other:before {
   content: "\e605"; }
+
+/*** Legend ***/
+#legend {
+  padding: 5px 5px 5px 10px;
+  background: #EEE;
+  height: 30%;
+  width: 15%; }
+  #legend h3 {
+    text-align: center; }

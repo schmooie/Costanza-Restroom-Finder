@@ -95,8 +95,10 @@ angular.module('pottyParty.services')
             animation: animation
           });
 
-          if (options.onTop) {
-          	// Need a custom overlay so that Costanza sits on top of the clusters -- zIndex DOES NOT work
+          if (options.onTop === true) {
+          	// Costanza on top of the other markers when zoomed in --- still need to overlay him on top of the clusters
+            marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
+            console.log(marker);
           }
           return marker;
         },
