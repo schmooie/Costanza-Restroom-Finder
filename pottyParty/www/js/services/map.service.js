@@ -48,6 +48,7 @@ angular.module('pottyParty.services')
 			makeMarker: function (rawCoords, map, data, title) {
 				var animation = null;
 				var position;
+				var icon;
 
 				if (rawCoords) {
 					// raw data coordinates = [long, lat]
@@ -57,22 +58,27 @@ angular.module('pottyParty.services')
 					position = data;
 					animation = google.maps.Animation.DROP;
 				}
-				// var icon;
-				// if (data.category === 'Coffee Shop') {
 
-				// } else if (data.category === 'Public') {
+				if (data.category === 'Coffee Shop') {
+					icon = 'img/coffee.png';
+				} else if (data.category === 'Public') {
+					icon = 'img/public.png';
+				} else if (data.category === 'Hotel') {
+					icon = 'img/hotel.png';
+				} else if (data.category === 'Book Store') {
+					icon = 'img/book.png';
+				} else if (data.category === 'Other') {
+					icon = 'img/other.png';
+				} else {
+					icon = 'img/other.png';
+				}
+				// FIND COSTANZA ICON
 
-				// } else if (data.category === 'Hotel') {
-
-				// } else if (data.category === 'Book Store') {
-
-				// } else (data.category === 'Other') {
-
-				// }
 				var marker = new google.maps.Marker({
 					position: position,
 					title: title,
 					map: map,
+					icon: icon,
 					animation: animation
 				});
 				return marker;

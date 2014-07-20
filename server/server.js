@@ -45,6 +45,6 @@ app.route('/api/near?')
 	});
 });
 
-http.createServer(app).listen(3000, function () {
+http.createServer(app).listen(process.env.PORT || 3000, function () {
 	console.log('Listening on 3000');
 });

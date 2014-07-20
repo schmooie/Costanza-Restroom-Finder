@@ -13,6 +13,7 @@
     "mongoose": "^3.8.13",
     "express-restify-mongoose": "^0.6.8",
     "body-parser": "^1.4.3",
-    "method-override": "^2.1.1"
+    "method-override": "^2.1.1",
+    "http": "0.0.0"
   }
 }
