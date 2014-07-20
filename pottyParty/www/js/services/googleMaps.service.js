@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('pottyParty.services')
-  .factory('googleMaps', ['$q', 'mapFuncs',
-    function($q, mapFuncs) {
+  .factory('googleMaps', ['$q', '$rootScope', 'mapFuncs',
+    function($q, $rootScope, mapFuncs) {
       var distanceMatrixService = new google.maps.DistanceMatrixService();
       var maps = {};
 
@@ -55,7 +55,6 @@ angular.module('pottyParty.services')
           tempDestinations = destinations.map(function(dest) {
             return new google.maps.LatLng(dest.coords[1], dest.coords[0]);
           });
-          console.log(tempDestinations);
         } else {
           throw new Error('Unrecognized format for destinations (getDistanceMatrix)');
         }
@@ -81,9 +80,11 @@ angular.module('pottyParty.services')
               });
 
             });
+            $rootScope.$broadcast('event-distances-computed', destinations);
             d.resolve(destinations);
           },
           function() {
+            $rootScope.$broadcast('event-distances-failed', arguments);
             d.reject(arguments);
           });
 

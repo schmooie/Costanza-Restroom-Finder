@@ -56,15 +56,9 @@ angular.module('pottyParty.controllers')
           currentAddress.latitude = res.lat;
           currentAddress.longitude = res.lng;
 
-          console.log('GEOCODE success: ', res);
+          var someRestrooms = mapFuncs.filterByRadius(currentLocation, $rootScope.allRestrooms, RANGE);
 
-          var someRestrooms = mapFuncs.filterByRadius(currentLocation, $scope.allRestrooms, RANGE);
-
-          googleMaps.getDistanceMatrix([userLocationObj], someRestrooms).then(function(res) {
-            console.log('Distance Matrix results: ', res);
-          }, function(err) {
-            console.log('Failed to get distance matrix: ', arguments);
-          });
+          googleMaps.getDistanceMatrix([userLocationObj], someRestrooms);
 
           someRestrooms.forEach(function(el) {
             markers.push(mapFuncs.makeMarker(mapCanvas, el, {
@@ -74,6 +68,7 @@ angular.module('pottyParty.controllers')
 
           makeClusters();
 
+          console.log('GEOCODE success: ', res);
         }, function(err) {
           console.log('GEOCODE fail: ', err);
           $cordovaToast.showLongCenter('Darn. The Potty Satellite 5000 is having trouble figuring out the address. Try again.');
