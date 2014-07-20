@@ -51,24 +51,26 @@ angular.module('pottyParty.services')
             height: 66,
             width: 66
           }, {
-          	textColor: 'black',
+            textColor: 'black',
             url: 'img/tp_78.png',
             height: 78,
             width: 78
           }]
         },
-        makeMarker: function(rawCoords, map, data, title) {
+        makeMarker: function(map, data, options) {
           var animation = null;
           var position;
           var icon;
+          var title;
 
-          if (rawCoords) {
+          if (options.rawCoords) {
             // raw data coordinates = [long, lat]
             position = new google.maps.LatLng(data.coords[1], data.coords[0]);
             title = data.name;
           } else {
             position = data;
             animation = google.maps.Animation.DROP;
+            title = options.title;
           }
 
           if (data.category === 'Coffee Shop') {
@@ -92,6 +94,10 @@ angular.module('pottyParty.services')
             icon: icon,
             animation: animation
           });
+
+          if (options.onTop) {
+          	// Need a custom overlay so that Costanza sits on top of the clusters -- zIndex DOES NOT work
+          }
           return marker;
         },
         filterByRadius: function(origin, data, radius) {

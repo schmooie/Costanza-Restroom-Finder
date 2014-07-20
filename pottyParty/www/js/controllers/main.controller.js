@@ -24,9 +24,6 @@ angular.module('pottyParty.controllers')
             .success(function(restrooms) {
               allRestrooms = restrooms;
               storage.setObject('allRestrooms', allRestrooms);
-              //    allRestrooms.forEach(function(el){
-              // 	mapFuncs.makeMarker(true, mapCanvas, el);
-              // });
               console.log(allRestrooms);
             }).error(function(err) {
               console.log('Failed to get restrooms: ', err);
@@ -55,7 +52,11 @@ angular.module('pottyParty.controllers')
 
           // GEORGE COSTANZA
           // temporary hard code -- switch back to userLocationObj
-          var costanza = mapFuncs.makeMarker(false, mapCanvas, mapOptions.center, 'George Costanza');
+          var costanza = mapFuncs.makeMarker(mapCanvas, mapOptions.center, {
+          	onTop: true,
+          	title:'George Costanza',
+          	rawCoords: false
+          });
 
           geocoder.geocodeAddress(address).then(function(res) {
             $scope.searchAddress = res.formattedAddress;
@@ -73,7 +74,9 @@ angular.module('pottyParty.controllers')
 
           console.log(someRestrooms);
           someRestrooms.forEach(function(el) {
-            markers.push(mapFuncs.makeMarker(true, mapCanvas, el));
+            markers.push(mapFuncs.makeMarker(mapCanvas, el, {
+            	rawCoords: true
+            }));
           });
           makeClusters();
         }, function(err) {
