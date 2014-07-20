@@ -4,16 +4,30 @@ angular.module('pottyParty.controllers')
 
       var currentAddress = {};
       var mapCanvas = googleMaps.getMap('mainMap');
+      var costanza;
       var markers = [];
+      var markersClust;
+
       var RANGE = 0.0075;
       // var RANGE = 0.0145;
 
       $rootScope.showMap = true;
-      // Add a Legend
-      mapCanvas.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('legend'));
+
+      var clearAllMarkers = function() {
+        markers.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+        if (markersClust) {
+          markersClust.clearMarkers();
+        }
+        if (costanza) {
+          costanza.setMap(null);
+        }
+      };
 
       var makeClusters = function() {
-        var mc = new MarkerClusterer(mapCanvas, markers, mapFuncs.mcOptions);
+        markersClust = new MarkerClusterer(mapCanvas, markers, mapFuncs.mcOptions);
       };
 
       // TODO: Repurpose existing markers + markerClusters on each loadNearbyRestrooms call
@@ -33,6 +47,9 @@ angular.module('pottyParty.controllers')
 
         geocoder.geocodeAddress(address).then(function(res) {
           console.log(res);
+
+          clearAllMarkers();
+
           var currentLocation = {
             latitude: res.lat,
             longitude: res.lng
@@ -44,7 +61,7 @@ angular.module('pottyParty.controllers')
           mapCanvas.setZoom(15);
 
           // GEORGE COSTANZA
-          var costanza = mapFuncs.makeMarker(mapCanvas, userLocationObj, {
+          costanza = mapFuncs.makeMarker(mapCanvas, userLocationObj, {
             onTop: true,
             title: 'George Costanza',
             rawCoords: false

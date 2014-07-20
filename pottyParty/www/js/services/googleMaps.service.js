@@ -100,6 +100,8 @@ angular.module('pottyParty.services')
       };
 
       var map = initialize(map_id, mapOptions);
+      // Add a Legend
+      map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('legend'));
 
       addMap('mainMap', map);
 
