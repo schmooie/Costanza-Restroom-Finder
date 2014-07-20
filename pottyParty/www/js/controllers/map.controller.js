@@ -14,16 +14,16 @@ angular.module('pottyParty.controllers')
       $rootScope.showMap = true;
 
       var clearAllMarkers = function() {
-        markers.forEach(function(marker) {
-          marker.setMap(null);
-        });
-        markers = [];
         if (markersClust) {
           markersClust.clearMarkers();
         }
         if (costanza) {
           costanza.setMap(null);
         }
+        markers.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        markers = [];
       };
 
       var makeClusters = function() {
