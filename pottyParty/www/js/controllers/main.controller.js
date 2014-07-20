@@ -19,19 +19,40 @@ angular.module('pottyParty.controllers')
 	        	.success(function(restrooms){
 	        		allRestrooms = restrooms;
 	            storage.setObject('allRestrooms', allRestrooms);
-	            allRestrooms.forEach(function(el){
-	      				mapFuncs.makeMarker(true, mapCanvas, el);
-	      			});
+	         //    allRestrooms.forEach(function(el){
+	      			// 	mapFuncs.makeMarker(true, mapCanvas, el);
+	      			// });
 	        		console.log(allRestrooms);
 	        	}).error(function(err) {
 	            console.log('Failed to get restrooms: ', err);
 	          });
 	      } else {
 	        console.log('Loaded from localStorage: ', allRestrooms);
-	        allRestrooms.forEach(function(el){
-	      			mapFuncs.makeMarker(true, mapCanvas, el);
-	    		});
 	      }
+      };
+
+      var filterByRadius = function(origin, data, radius) {
+        // 0.0145 lat/lng
+        var c2 = radius*radius;
+        var xMin = origin.latitude - radius;
+        var xMax = origin.latitude + radius;
+        var yMin = origin.longitude - radius;
+        var yMax = origin.longitude + radius;
+        var filteredLocations = [];
+
+        data.forEach(function(place) {
+          if (place.coords[1] > xMax || place.coords[1] < xMin ||
+              place.coords[0] > yMax || place.coords[0] < yMin) {
+            return;
+          }
+          var a2 = (place.coords[1]-origin.latitude)*(place.coords[1]-origin.latitude);
+          var b2 = (place.coords[0]-origin.longitude)*(place.coords[0]-origin.longitude);
+          if (a2 + b2 <= c2) {
+            filteredLocations.push(place);
+          }
+        });
+
+        return filteredLocations;
       };
 
       var initialize = function() {
@@ -45,6 +66,7 @@ angular.module('pottyParty.controllers')
       $scope.getCurrentPosition = function(options) {
         $cordovaToast.showLongCenter('The Potty Satellite 5000 is pinpointing your exact location...');
         $cordovaGeolocation.getCurrentPosition(options).then(function(res) {
+          var currentLocation = res.coords;
           var address = res.coords.latitude + ',' + res.coords.longitude;
 
           var userLocation = new google.maps.LatLng(res.coords.latitude, res.coords.longitude);
@@ -60,6 +82,14 @@ angular.module('pottyParty.controllers')
             console.log('GEOCODE success: ', res);
           }, function(err) {
             console.log('GEOCODE fail: ', err);
+          });
+
+          console.log(currentLocation);
+          var someRestrooms = filterByRadius(currentLocation, allRestrooms, 0.0145);
+
+          console.log(someRestrooms);
+          someRestrooms.forEach(function(el){
+             mapFuncs.makeMarker(true, mapCanvas, el);
           });
 
 
