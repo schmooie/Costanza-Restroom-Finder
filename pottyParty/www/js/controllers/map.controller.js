@@ -10,7 +10,7 @@ angular.module('pottyParty.controllers')
 
       $rootScope.showMap = true;
       // Add a Legend
-      mapCanvas.controls[google.maps.ControlPosition.RIGHT_CENTER].push(document.getElementById('legend'));
+      mapCanvas.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('legend'));
 
       var makeClusters = function() {
         var mc = new MarkerClusterer(mapCanvas, markers, mapFuncs.mcOptions);
