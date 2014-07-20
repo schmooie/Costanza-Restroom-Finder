@@ -37,11 +37,7 @@ angular.module('pottyParty.controllers')
       };
 
       var makeClusters = function() {
-        var mc = new MarkerClusterer(mapCanvas, markers, mcOptions);
-        var mcOptions = {
-          gridSize: 5,
-          maxZoom: 15
-        };
+        var mc = new MarkerClusterer(mapCanvas, markers, mapFuncs.mcOptions);
       };
 
       google.maps.event.addDomListener(window, 'load', initialize);

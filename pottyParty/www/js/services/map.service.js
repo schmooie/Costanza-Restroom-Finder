@@ -1,5 +1,6 @@
 angular.module('pottyParty.services')
   .factory('mapFuncs', [
+
     function() {
       return {
         style: [{
@@ -31,6 +32,31 @@ angular.module('pottyParty.services')
             "color": "#D1D1B8"
           }]
         }],
+        mcOptions: {
+          gridSize: 40,
+          maxZoom: 17,
+          styles: [{
+            textColor: 'black',
+            url: 'img/tp_53.png',
+            height: 53,
+            width: 53
+          }, {
+            textColor: 'black',
+            url: 'img/tp_56.png',
+            height: 56,
+            width: 56
+          }, {
+            textColor: 'black',
+            url: 'img/tp_66.png',
+            height: 66,
+            width: 66
+          }, {
+          	textColor: 'black',
+            url: 'img/tp_78.png',
+            height: 78,
+            width: 78
+          }]
+        },
         makeMarker: function(rawCoords, map, data, title) {
           var animation = null;
           var position;
