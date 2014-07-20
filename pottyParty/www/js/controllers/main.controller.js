@@ -15,7 +15,7 @@ angular.module('pottyParty.controllers')
       var loadMarkers = function () {
 	      if (allRestrooms === null) {
 	        console.log('Requesting data from server...');
-	        $http.get('http://localhost:3000/api/v1/Restrooms')
+	        $http.get('http://nycrestrooms.herokuapp.com/api/v1/Restrooms')
 	        	.success(function(restrooms){
 	        		allRestrooms = restrooms;
 	            storage.setObject('allRestrooms', allRestrooms);

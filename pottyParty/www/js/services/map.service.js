@@ -70,9 +70,8 @@ angular.module('pottyParty.services')
 				} else if (data.category === 'Other') {
 					icon = 'img/other.png';
 				} else {
-					icon = 'img/other.png';
+					icon = 'img/costanza.png';
 				}
-				// FIND COSTANZA ICON
 
 				var marker = new google.maps.Marker({
 					position: position,
