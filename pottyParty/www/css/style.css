@@ -51,3 +51,9 @@
 
 .icon-other:before {
   content: "\e605"; }
+
+/*** Legend ***/
+#legend {
+  margin: 0, 10px, 10px, 0;
+  width: 20%;
+  text-align: center; }
