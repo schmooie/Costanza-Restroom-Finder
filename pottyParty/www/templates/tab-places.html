@@ -1,9 +1,42 @@
-<ion-view title="Friends">
+<ion-view title="Places">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="restroom in allRestrooms" type="item-text-wrap">
-        {{restroom.name}}
-      </ion-item>
+
+      <label class="item item-input row">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" ng-model="searchTerm" placeholder="Search">
+      </label>
+      <div class="item item-divider row">
+        <div class="col col-25">
+          <span ng-click="changeCurrent('name')" ng-class="{'blue-text': current === 'name', 'bluer-text': reverse && current === 'name'}">Name
+          </span>
+        </div>
+        <div class="col col-50">
+          <a ng-click="changeCurrent('address')" ng-class="{'blue-text': current === 'address', 'bluer-text': reverse && current === 'address'}">Approximate Address
+          </a>
+        </div>
+        <div class="col">
+          <a ng-click="changeCurrent('distance')" ng-class="{'blue-text': current === 'distance', 'bluer-text': reverse && current === 'distance'}">Dist.
+          </a>
+        </div>
+        <div class="col">
+          <a ng-click="changeCurrent('duration')" ng-class="{'blue-text': current === 'duration', 'bluer-text': reverse && current === 'duration'}">Dur.
+          </a>
+        </div>
+      </div>
+      <div ng-repeat="restroom in currentRestrooms | filter:searchTerm | orderBy:predicate:reverse">
+        <div class="item row" ng-click="moveMap(restroom)">
+          <span class="col col-25 iPhone item-text-wrap text-small">{{restroom.name | uppercase}}</span>
+          <span class="col col-50 iPhone item-text-wrap text-small">{{restroom.details.address}}</span>
+          <span class="col iPhone item-text-wrap text-small">
+            {{restroom.details.distance.text}}
+          </span>
+          <span class="col iPhone item-text-wrap text-small">
+            {{restroom.details.duration.text}}
+          </span>
+        </div>
+      </div>
+
     </ion-list>
   </ion-content>
 </ion-view>
