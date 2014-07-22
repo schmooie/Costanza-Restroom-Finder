@@ -70,12 +70,12 @@ angular.module('pottyParty.services')
             // raw data coordinates = [long, lat]
             position = new google.maps.LatLng(data.coords[1], data.coords[0]);
             title = data.name;
-            contentStr = '<div class="infoWindow"> <h3>' + data.name + '</h3> Category: ' + data.category + '</div>';
+            contentStr = '<div class="info-window"> <h3>' + data.name + '</h3> Category: ' + data.category + '</div>';
           } else {
             position = data;
             animation = google.maps.Animation.DROP;
             title = options.title;
-            contentStr = 'GEORGE COSTANZA';
+            contentStr = '<div class="info-window"><h3>YOU ARE HERE.</h3> You are George Costanza.</div>';
           }
 
           if (data.category === 'Coffee Shop') {

@@ -57,3 +57,7 @@
   margin: 0, 10px, 10px, 0;
   width: 20%;
   text-align: center; }
+
+/*** Info Windows ***/
+.info-window {
+  font-size: 1em; }
